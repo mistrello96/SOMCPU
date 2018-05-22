@@ -8,7 +8,7 @@
 #include <random>
 #include <chrono>
 
-// returns the number of features per line. Save reads in samples vector
+// returns the number of features per line. Save file in samples vector
 int readSamplesfromFile(std::vector<double>& samples, std::string filePath)
 {
 	int counter = 0;
