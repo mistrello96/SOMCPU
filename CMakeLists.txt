@@ -1,6 +1,3 @@
-# Minimum version for CUDA
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
-
 # Root dir
 set(PROJECT_ROOT_DIR ${PROJECT_SOURCE_DIR})
 
