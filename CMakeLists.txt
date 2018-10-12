@@ -34,4 +34,4 @@ add_executable(
 )
 
 # C++11
-target_compile_features(SOMCPU PUBLIC cxx_std_11)
+# target_compile_features(SOMCPU PUBLIC cxx_std_11)

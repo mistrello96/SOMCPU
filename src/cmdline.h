@@ -61,10 +61,10 @@ struct gengetopt_args_info
   const char *verbose_help; /**< @brief enables debug print help description.  */
   int debug_flag;	/**< @brief enables advanced debug prints (default=off).  */
   const char *debug_help; /**< @brief enables advanced debug prints help description.  */
-  int savedistances_flag;	/**< @brief saves distances between reads and the final SOM in a file called 'distances.out' (default=off).  */
-  const char *savedistances_help; /**< @brief saves distances between reads and the final SOM in a file called 'distances.out' help description.  */
-  int saveall_flag;	/**< @brief saves the input and output SOM in a file. It also saves distances between reads and the final SOM in a file called 'distances.out' (default=off).  */
-  const char *saveall_help; /**< @brief saves the input and output SOM in a file. It also saves distances between reads and the final SOM in a file called 'distances.out' help description.  */
+  int savedistances_flag;	/**< @brief saves distances between samples and the final SOM in a file called 'distances.out' (default=off).  */
+  const char *savedistances_help; /**< @brief saves distances between samples and the final SOM in a file called 'distances.out' help description.  */
+  int saveall_flag;	/**< @brief saves the input and output SOM in a file. It also saves distances between samples and the final SOM in a file called 'distances.out' (default=off).  */
+  const char *saveall_help; /**< @brief saves the input and output SOM in a file. It also saves distances between samples and the final SOM in a file called 'distances.out' help description.  */
   char * savepath_arg;	/**< @brief PATH to saving folder (default='./').  */
   char * savepath_orig;	/**< @brief PATH to saving folder original value given at command line.  */
   const char *savepath_help; /**< @brief PATH to saving folder help description.  */
