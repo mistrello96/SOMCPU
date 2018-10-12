@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <float.h>
+#include <assert.h>
 
 #include "utility_functions.h"
 #include "distance_functions.h"
@@ -26,6 +27,8 @@ int main(int argc, char **argv)
     bool verbose = ai.verbose_flag;
     // advanced debug
     bool debug = ai.debug_flag;
+    // test flag
+    bool test = ai.test_flag;
     // save SOM to file
     bool saveall = ai.saveall_flag;
     // save distances to file
@@ -113,6 +116,8 @@ int main(int argc, char **argv)
         h_Samples[i] = samples[i];
     }
 
+
+
     // EXTRACTING THE MIN/MAX FROM SAMPLES(only used for random initialization)
     if (initializationType == 'r')
     {
@@ -127,17 +132,26 @@ int main(int argc, char **argv)
     	nRows = sqrt(tmp);
     	nColumns = sqrt(tmp);
     }
+    if (test)
+		assert(nRows != 0 && nColumns != 0);
 
+    
     // estimate the radius if not given (covering 2/3 of the matrix)
     if (initialRadius == 0)
     {
     	initialRadius = 1 + (std::max(nRows, nColumns)/2) * 2 / 3;
     }
+    
+    if (test)
+    	assert(initialRadius != 0);
 
     // total number of neurons in the SOM
     nNeurons = nRows * nColumns;
     // total length of the serialized matrix
     totalLength = nRows * nColumns * nElements;
+
+    if (test)
+	    assert(nNeurons != 0 && totalLength != 0);
     
 
     // CHECKING PARAMS COMPATIBILITY
@@ -206,10 +220,13 @@ int main(int argc, char **argv)
     int* randIndexes = new int[nSamples];
     for (int i = 0; i < nSamples; i++)
     {
+    	if (test)
+    		assert (i <= nSamples);
     	randIndexes[i] = i;
     }
 
-
+    if (test)
+    	assert (nIter < maxnIter);
     // ITERATE UNTILL MAXNITER IS REACHED
     while(nIter < maxnIter)
     {
@@ -316,7 +333,8 @@ int main(int argc, char **argv)
             }      
         }
 
-
+        if (test)
+			assert(h_DistanceHistory != 0);
         // END OF EPOCH. UPDATING VALUES
         // computing accuracy as required
         if(!normalizedistance)

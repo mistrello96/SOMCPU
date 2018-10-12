@@ -56,6 +56,7 @@ const char *gengetopt_args_info_help[] = {
   "      --randomize               enables the randomization of the dataset.\n                                  Before presentig the dataset to the SOM(each\n                                  epoch), all entries are shuffled.\n                                  (default=on)",
   "      --exponential=STRING      enables the exponential decay of the learning\n                                  rate and/or the radius. Use l for learning\n                                  rate, r for radius or b for both  (possible\n                                  values=\"n\", \"l\", \"r\", \"b\"\n                                  default=`n')",
   "      --normalizedistance       enables the normalized mean distance. Not\n                                  avaiable if Tanimoto distance is selected\n                                  (default=off)",
+  "  -t, --test                    trigger the test process. No need any\n                                  parameters  (default=off)",
     0
 };
 
@@ -110,6 +111,7 @@ void clear_given (struct gengetopt_args_info *args_info)
   args_info->randomize_given = 0 ;
   args_info->exponential_given = 0 ;
   args_info->normalizedistance_given = 0 ;
+  args_info->test_given = 0 ;
 }
 
 static
@@ -149,6 +151,7 @@ void clear_args (struct gengetopt_args_info *args_info)
   args_info->exponential_arg = gengetopt_strdup ("n");
   args_info->exponential_orig = NULL;
   args_info->normalizedistance_flag = 0;
+  args_info->test_flag = 0;
   
 }
 
@@ -179,6 +182,7 @@ void init_args_info(struct gengetopt_args_info *args_info)
   args_info->randomize_help = gengetopt_args_info_help[19] ;
   args_info->exponential_help = gengetopt_args_info_help[20] ;
   args_info->normalizedistance_help = gengetopt_args_info_help[21] ;
+  args_info->test_help = gengetopt_args_info_help[22] ;
   
 }
 
@@ -397,6 +401,8 @@ cmdline_parser_dump(FILE *outfile, struct gengetopt_args_info *args_info)
     write_into_file(outfile, "exponential", args_info->exponential_orig, cmdline_parser_exponential_values);
   if (args_info->normalizedistance_given)
     write_into_file(outfile, "normalizedistance", 0, 0 );
+  if (args_info->test_given)
+    write_into_file(outfile, "test", 0, 0 );
   
 
   i = EXIT_SUCCESS;
@@ -688,10 +694,11 @@ cmdline_parser_internal (
         { "randomize",	0, NULL, 0 },
         { "exponential",	1, NULL, 0 },
         { "normalizedistance",	0, NULL, 0 },
+        { "test",	0, NULL, 't' },
         { 0,  0, 0, 0 }
       };
 
-      c = getopt_long (argc, argv, "hVi:x:y:s:f:n:vdr:", long_options, &option_index);
+      c = getopt_long (argc, argv, "hVi:x:y:s:f:n:vdr:t", long_options, &option_index);
 
       if (c == -1) break;	/* Exit from `while (1)' loop.  */
 
@@ -807,6 +814,16 @@ cmdline_parser_internal (
               &(local_args_info.radius_given), optarg, 0, "0", ARG_INT,
               check_ambiguity, override, 0, 0,
               "radius", 'r',
+              additional_error))
+            goto failure;
+        
+          break;
+        case 't':	/* trigger the test process. No need any parameters.  */
+        
+        
+          if (update_arg((void *)&(args_info->test_flag), 0, &(args_info->test_given),
+              &(local_args_info.test_given), optarg, 0, 0, ARG_FLAG,
+              check_ambiguity, override, 1, 0, "test", 't',
               additional_error))
             goto failure;
         

@@ -92,6 +92,8 @@ struct gengetopt_args_info
   const char *exponential_help; /**< @brief enables the exponential decay of the learning rate and/or the radius. Use l for learning rate, r for radius or b for both help description.  */
   int normalizedistance_flag;	/**< @brief enables the normalized mean distance. Not avaiable if Tanimoto distance is selected (default=off).  */
   const char *normalizedistance_help; /**< @brief enables the normalized mean distance. Not avaiable if Tanimoto distance is selected help description.  */
+  int test_flag;	/**< @brief trigger the test process. No need any parameters (default=off).  */
+  const char *test_help; /**< @brief trigger the test process. No need any parameters help description.  */
   
   unsigned int help_given ;	/**< @brief Whether help was given.  */
   unsigned int version_given ;	/**< @brief Whether version was given.  */
@@ -115,6 +117,7 @@ struct gengetopt_args_info
   unsigned int randomize_given ;	/**< @brief Whether randomize was given.  */
   unsigned int exponential_given ;	/**< @brief Whether exponential was given.  */
   unsigned int normalizedistance_given ;	/**< @brief Whether normalizedistance was given.  */
+  unsigned int test_given ;	/**< @brief Whether test was given.  */
 
 } ;
 

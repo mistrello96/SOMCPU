@@ -24,3 +24,4 @@ option "toroidal" - "allows to choose between planar topology and toroidal topol
 option "randomize" - "enables the randomization of the dataset. Before presentig the dataset to the SOM(each epoch), all entries are shuffled." flag on
 option "exponential" - "enables the exponential decay of the learning rate and/or the radius. Use l for learning rate, r for radius or b for both" string optional default="n" values="n","l","r","b"
 option "normalizedistance" - "enables the normalized mean distance. Not avaiable if Tanimoto distance is selected" flag off
+option "test" t "trigger the test process. No need any parameters" flag off
