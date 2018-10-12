@@ -12,8 +12,12 @@ build:
         - make
         
 test:
-  stage: test
-  script:
-    - ls -a
-    - ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
+    stage: test
+    script:
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make
+        - cd ..
+        - ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
 
