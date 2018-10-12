@@ -39,6 +39,8 @@ test:
 deploy:
   stage: deploy
   image: docker
+  before_script:
+  - docker info
   script:
     - service docker start 
     - docker build -t somcpu .
