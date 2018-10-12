@@ -23,5 +23,6 @@ test:
 
 deploy:
   stage: deploy
+  image: docker
   script: 
     - docker build -t SOMCPU .
