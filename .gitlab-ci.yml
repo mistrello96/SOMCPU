@@ -14,4 +14,4 @@ build:
 test:
   stage: test
   script:
-#    - ./runmytests.sh
+    - ./SOMCPU -h
