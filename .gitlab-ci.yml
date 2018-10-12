@@ -1,11 +1,21 @@
 image: gcc
-before_script:
-    - apt-get update --yes
-    - apt-get install --yes cmake
+
+stages: 
+    - build
+    - test
+    - deploy
+    
+#before_script:
+#    - apt-get update --yes
+#    - apt-get install --yes cmake
+#    - apt-get install --yes make
 
 build:
     stage: build
     script:
+        - apt-get update --yes
+        - apt-get install --yes cmake
+        - apt-get install --yes make
         - mkdir build
         - cd build
         - cmake ..
@@ -14,6 +24,9 @@ build:
 test:
     stage: test
     script:
+        - apt-get update --yes
+        - apt-get install --yes cmake
+        - apt-get install --yes make
         - mkdir build
         - cd build
         - cmake ..
