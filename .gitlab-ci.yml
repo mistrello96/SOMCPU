@@ -1,6 +1,5 @@
 image: gcc
-tags:
-    - deploy
+
 stages: 
     - build
     - test
@@ -13,6 +12,8 @@ stages:
 
 build:
     stage: build
+    tags:
+    - deploy
     before_script:
     - apt-get update --yes
     - apt-get install --yes cmake
@@ -25,6 +26,8 @@ build:
         
 test:
     stage: test
+    tags:
+    - deploy
     before_script:
     - apt-get update --yes
     - apt-get install --yes cmake
