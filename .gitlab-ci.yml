@@ -1,5 +1,6 @@
 image: gcc
-tags: deploy
+tags:
+    - deploy
 stages: 
     - build
     - test
