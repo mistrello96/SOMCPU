@@ -1,10 +1,21 @@
 image: gcc
-before_script:
-    - apt-get update --yes
-    - apt-get install --yes cmake
+
+stages: 
+    - build
+    - test
+    - deploy
+    
+#before_script:
+#    - apt-get update --yes
+#    - apt-get install --yes cmake
+#    - apt-get install --yes make
 
 build:
     stage: build
+    before_script:
+    - apt-get update --yes
+    - apt-get install --yes cmake
+    - apt-get install --yes make
     script:
         - mkdir build
         - cd build
@@ -13,6 +24,10 @@ build:
         
 test:
     stage: test
+    before_script:
+    - apt-get update --yes
+    - apt-get install --yes cmake
+    - apt-get install --yes make
     script:
         - mkdir build
         - cd build
@@ -23,8 +38,6 @@ test:
         - ./SOMCPU -n -10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t
         - ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
 
-deploy:
-  stage: deploy
-  image: docker
-  script: 
-    - docker build -t SOMCPU .
+#deploy:
+#  stage: deploy
+
