@@ -20,6 +20,8 @@ test:
         - make
         - cd ..
         - ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
+        - ./SOMCPU -n -10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t
+        - ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
 
 deploy:
   stage: deploy

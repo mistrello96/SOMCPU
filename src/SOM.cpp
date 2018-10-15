@@ -66,6 +66,19 @@ int main(int argc, char **argv)
     // counter of epochs/iterations
     int nIter = 0;
     
+    if (maxnIter <= 0){
+    	std::cout << "The iteration number must be greater than 0" << std::endl;
+        exit(0);
+    }
+
+        if (ilr < 0){
+    	std::cout << "The iteration number must be greater than 0" << std::endl;
+        exit(0);
+    }
+
+    assert(maxnIter > 0);
+    assert(ilr >= 0);
+
     // DECLARATION OF USEFULL VARIABLES
     // min and max values of neurons (used for random initialization)
     double min_neuronValue, max_neuronValue;
@@ -97,7 +110,7 @@ int main(int argc, char **argv)
     {
         std::cout << "./a.out: '--initial_learning_rate' ('-s') option required" << std::endl;
         std::cout << "./a.out: '--iteration' ('-n') option required " << std::endl;
-        exit(-1);
+        exit(0);
     }
 
     // READ THE INPUT FILE
@@ -158,8 +171,9 @@ int main(int argc, char **argv)
     if(normalizedistance && (distanceType=='t'))
     {
         std::cout << "NormalizeDistance option not avaiable with Tanimoto Distance" << std::endl;
-        exit(-1);
+        exit(0);
     }
+    assert(!((normalizedistance) && (distanceType=='t')));
 
     // ALLOCATION OF THE STRUCTURES
     // host SOM representation(linearized matrix)
