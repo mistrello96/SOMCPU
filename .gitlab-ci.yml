@@ -16,19 +16,19 @@ stages:
 build:
     stage: build
     tags:
-    - deploy
+        - deploy
     script:
-    - docker build -t $CONTAINER_TEST_IMAGE .
-    - docker push $CONTAINER_TEST_IMAGE
+        - docker build -t $CONTAINER_TEST_IMAGE .
+        - docker push $CONTAINER_TEST_IMAGE
         
 test:
     stage: test
     tags:
     - deploy
     script:
-- docker run $CONTAINER_TEST_IMAGE "./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t"
-- docker run $CONTAINER_TEST_IMAGE "./SOMCPU -n -10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t"
-- docker run $CONTAINER_TEST_IMAGE "./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t"
+        - docker run $CONTAINER_TEST_IMAGE "./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t"
+        - docker run $CONTAINER_TEST_IMAGE "./SOMCPU -n -10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t"
+        - docker run $CONTAINER_TEST_IMAGE "./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t"
 
 release-image:
   stage: release
