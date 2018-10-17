@@ -42,3 +42,4 @@ release-image:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
     - docker push $CONTAINER_RELEASE_IMAGE
+    - docker images -q --filter "dangling=true" | xargs docker rmi
