@@ -7,7 +7,8 @@ variables:
   CONTAINER_RELEASE_IMAGE: registry.gitlab.com/mistrello96/somcpu:latest
 
 before_script:
-  - sudo docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com/mistrello96/somcpu
+    - whoami
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com/mistrello96/somcpu
 
 stages: 
     - build
