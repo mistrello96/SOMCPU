@@ -31,6 +31,8 @@ test:
         - docker run $CONTAINER_TEST_IMAGE -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
         - docker run $CONTAINER_TEST_IMAGE -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t
         - docker run $CONTAINER_TEST_IMAGE -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
+        - docker run $CONTAINER_TEST_IMAGE -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y -5 -s 0.01 -t
+        - docker run $CONTAINER_TEST_IMAGE -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x -5 -y 5 -s 0.01 -t
 
 release-image:
   stage: release
@@ -40,6 +42,3 @@ release-image:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
     - docker push $CONTAINER_RELEASE_IMAGE
-
-#deploy:
-#  stage: deploy
