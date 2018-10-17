@@ -28,7 +28,6 @@ test:
     tags:
     - deploy
     script:
-        - docker run $CONTAINER_TEST_IMAGE "echo ciao"
         - docker run $CONTAINER_TEST_IMAGE ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
         - docker run -it $CONTAINER_TEST_IMAGE "./SOMCPU -n -10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t"
         - docker run -it $CONTAINER_TEST_IMAGE "./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t"
