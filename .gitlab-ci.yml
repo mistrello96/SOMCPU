@@ -1,14 +1,17 @@
 image: gcc
 
+variables:
+  CONTAINER_TEST_IMAGE: registry.gitlab.com/mistrello96/somcpu:$CI_BUILD_REF_NAME
+  CONTAINER_RELEASE_IMAGE: registry.gitlab.com/mistrello96/somcpu:latest
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com/mistrello96/somcpu
+
 stages: 
     - build
     - test
     - deploy
-    
-#before_script:
-#    - apt-get update --yes
-#    - apt-get install --yes cmake
-#    - apt-get install --yes make
+    - release
 
 build:
     stage: build
@@ -19,10 +22,8 @@ build:
     - apt-get install --yes cmake
     - apt-get install --yes make
     script:
-        - mkdir build
-        - cd build
-        - cmake ..
-        - make
+    - docker build -t $CONTAINER_TEST_IMAGE .
+    - docker push $CONTAINER_TEST_IMAGE
         
 test:
     stage: test
@@ -33,14 +34,16 @@ test:
     - apt-get install --yes cmake
     - apt-get install --yes make
     script:
-        - mkdir build
-        - cd build
-        - cmake ..
-        - make
-        - cd ..
-        - ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
-        - ./SOMCPU -n -10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t
-        - ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
+	- docker run $CONTAINER_TEST_IMAGE ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
+	- docker run $CONTAINER_TEST_IMAGE ./SOMCPU -n -10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t
+	- docker run $CONTAINER_TEST_IMAGE ./SOMCPU -n 10 -i EsamplesData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t
+
+release-image:
+  stage: release
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
 
 #deploy:
 #  stage: deploy
