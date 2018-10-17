@@ -1,4 +1,6 @@
-image: gcc
+image: docker:git
+services:
+    - docker:dind
 
 variables:
   CONTAINER_TEST_IMAGE: registry.gitlab.com/mistrello96/somcpu:$CI_BUILD_REF_NAME
