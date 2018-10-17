@@ -8,4 +8,4 @@ RUN apk add less
 ADD . /home/SOMCPU
 WORKDIR /home/SOMCPU
 RUN mkdir build && cd build && cmake .. && make
-CMD ["/home/SOMCPU/SOMCPU"]
+ENTRYPOINT ["./SOMCPU"]
