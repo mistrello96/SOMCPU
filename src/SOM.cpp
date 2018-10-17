@@ -138,6 +138,12 @@ int main(int argc, char **argv)
         max_neuronValue = *std::max_element(h_Samples, h_Samples + samples.size());
 	}
 
+	if(nRows < 0 | nColumns < 0)
+    {
+        std::cout << "Negative number of neuron is not permitted" << std::endl;
+        exit(0);
+    }
+
     // estimate the neuron number if not given(using heuristic)
     if (nRows ==0 | nColumns == 0)
     {
@@ -146,7 +152,7 @@ int main(int argc, char **argv)
     	nColumns = sqrt(tmp);
     }
     if (test)
-		assert(nRows != 0 && nColumns != 0);
+		assert(nRows > 0 && nColumns > 0);
 
     
     // estimate the radius if not given (covering 2/3 of the matrix)
