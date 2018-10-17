@@ -34,6 +34,8 @@ test:
 
 release-image:
   stage: release
+  tags:
+  - deploy
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
