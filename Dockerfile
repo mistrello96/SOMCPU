@@ -4,7 +4,7 @@ RUN apk add make
 RUN apk add cmake
 RUN apk add bash
 RUN apk add gengetopt
-RUN apk add less
+RUN apk add nano
 ADD . /home/SOMCPU
 WORKDIR /home/SOMCPU
 RUN mkdir build && cd build && cmake .. && make
