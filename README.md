@@ -33,3 +33,4 @@ saved to a file.
 
 ./CUDA-SOM.out -i /folder/folder/inputfile.txt -n 5000 -s 0.3 -f 0.001 -x 200 -y 200 --savedistances -r 50 --distance=s --neighbors=b --toroidal --exponential=r
 
+a
