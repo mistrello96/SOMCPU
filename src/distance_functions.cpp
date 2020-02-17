@@ -5,6 +5,7 @@
 // function used to compute euclidean distance between each neuron and the selected sample
 void compute_distance_euclidean(double* h_matrix, double* h_Samples, int currentIndex, double* h_distance, int nNeuron, int nElements)
 {
+	# pragma omp parallel for schedule(guided)
 	for (int index = 0; index < nNeuron; index++)
 	{
 		// tmp will store the distances of the neuron's component
@@ -22,6 +23,7 @@ void compute_distance_euclidean(double* h_matrix, double* h_Samples, int current
 // function used to compute sum of squares distance between each neuron and the selected sample
 void compute_distance_sum_squares(double* h_matrix, double* h_Samples, int currentIndex, double* h_distance, int nNeuron, int nElements)
 {
+	# pragma omp parallel for schedule(guided)
 	for (int index = 0; index < nNeuron; index++)
 	{
 		// tmp will store the distances of the neuron's component
@@ -39,6 +41,7 @@ void compute_distance_sum_squares(double* h_matrix, double* h_Samples, int curre
 // function used to compute manhattan distance between each neuron and the selected sample
 void compute_distance_manhattan(double* h_matrix, double* h_Samples, int currentIndex, double* h_distance, int nNeuron, int nElements)
 {
+	# pragma omp parallel for schedule(guided)
 	for (int index = 0; index < nNeuron; index++)
 	{
 		// tmp will store the distances of the neuron's component
@@ -56,6 +59,7 @@ void compute_distance_manhattan(double* h_matrix, double* h_Samples, int current
 // function used to compute tanimoto distance between each neuron and the selected sample
 void compute_distance_tanimoto(double* h_matrix, double* h_Samples, int currentIndex, double* h_distance, int nNeuron, int nElements)
 {
+	# pragma omp parallel for schedule(guided)
 	for (int index = 0; index < nNeuron; index++)
 	{
 		double crossproduct = 0;

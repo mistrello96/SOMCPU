@@ -5,6 +5,7 @@
 #include <random>
 #include <float.h>
 #include <assert.h>
+#include <omp.h>
 
 #include "utility_functions.h"
 #include "distance_functions.h"
@@ -105,6 +106,8 @@ int main(int argc, char **argv)
     // file used to save distances of samples to their BMU on the last epoch
     std::ofstream distancesfile;
 
+    omp_set_num_threads(ai.threads_arg);
+
     //checking the required params
     if(ilr == -1 || maxnIter == -1)
     {
@@ -124,12 +127,11 @@ int main(int argc, char **argv)
     nSamples = samples.size() / nElements;
     double *h_Samples = (double *)malloc(sizeof(double) * samples.size());
     // copy from vector to array
+    # pragma omp parallel for schedule(guided)
     for (int i = 0; i < samples.size(); i++)
     {
         h_Samples[i] = samples[i];
     }
-
-
 
     // EXTRACTING THE MIN/MAX FROM SAMPLES(only used for random initialization)
     if (initializationType == 'r')
@@ -199,6 +201,7 @@ int main(int argc, char **argv)
     {
         // uniform distribution of values
     	std::uniform_real_distribution<> dist(min_neuronValue, max_neuronValue);
+        # pragma omp parallel for schedule(guided)
 	    for(int i = 0; i < totalLength; i++)
 	    {
 	    	h_Matrix[i] = dist(e2); 
@@ -209,6 +212,7 @@ int main(int argc, char **argv)
     {   
         // uniform distribution of indexes
     	std::uniform_int_distribution<> dist(0, nSamples);
+        # pragma omp parallel for schedule(guided)
 	    for (int i = 0; i < nNeurons; i++)
 	    {
 	        int r = dist(e2);
@@ -238,6 +242,7 @@ int main(int argc, char **argv)
 
     // initializing index array, used to shuffle the sample vector at each new iteration
     int* randIndexes = new int[nSamples];
+    # pragma omp parallel for schedule(guided)
     for (int i = 0; i < nSamples; i++)
     {
     	if (test)
@@ -288,12 +293,23 @@ int main(int argc, char **argv)
             // BMU search
             BMU_distance = h_Distance[0];
             BMU_index = 0;
-            for (int m = 1; m < nNeurons; m++)
+            #pragma omp parallel
             {
-                if(BMU_distance > h_Distance[m])
+                int index_local = BMU_index;
+                double min_local = BMU_distance;  
+                #pragma omp for nowait
+                for (int i = 1; i < nNeurons; i++) {        
+                    if (h_Distance[i] < min_local) {
+                        min_local = h_Distance[i];
+                        index_local = i;
+                    }
+                }
+                #pragma omp critical 
                 {
-                    BMU_distance = h_Distance[m];
-                    BMU_index = m;
+                    if (min_local < BMU_distance) {
+                        BMU_distance = min_local;
+                        BMU_index = index_local;
+                    }
                 }
             }
 

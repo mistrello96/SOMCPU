@@ -16,6 +16,7 @@ void update_BMU(double* k_Matrix, double* k_Samples, double lr, int samplesIndex
 // function to update SOM after the BMU has been found. Called when radius is > 0, all the SOM neurons will be updated. 
 void update_SOM(double* k_Matrix, double* k_Samples, double lr, int samplesIndex, int nElements, int BMUIndex, int nColumns, int radius, int nNeuron, char neighborsType)
 {
+    # pragma omp parallel for schedule(guided)
     for(int index = 0; index < nNeuron; index++)
     {
         // compute distance if lattice is square
@@ -42,6 +43,7 @@ void update_SOM(double* k_Matrix, double* k_Samples, double lr, int samplesIndex
 // function to update SOM after the BMU has been found. Called when radius is > 0, all the SOM neurons will be updated. 
 void update_SOM_toroidal(double* k_Matrix, double* k_Samples, double lr, int samplesIndex, int nElements, int BMUIndex, int nRows, int nColumns, int radius, int nNeuron, char neighborsType)
 {
+    # pragma omp parallel for schedule(guided)
     for(int index = 0; index < nNeuron; index++)
     {
         // call function to compute distance in a toroidal square map
@@ -68,6 +70,7 @@ void update_SOM_toroidal(double* k_Matrix, double* k_Samples, double lr, int sam
 // function to update a exagonal SOM after the BMU has been found. Called when radius is > 0, all the SOM neurons will be updated. 
 void update_SOM_exagonal(double* k_Matrix, double* k_Samples, double lr, int samplesIndex, int nElements, int BMUIndex, int nColumns, int radius, int nNeuron, char neighborsType)
 {
+    # pragma omp parallel for schedule(guided)
     for(int index = 0; index < nNeuron; index++)
     {
         // call function to compute distance in a exagonal map
@@ -94,6 +97,7 @@ void update_SOM_exagonal(double* k_Matrix, double* k_Samples, double lr, int sam
 // function to update a exagonal toroidal SOM after the BMU has been found. Called when radius is > 0, all the SOM neurons will be updated. 
 void update_SOM_exagonal_toroidal(double* k_Matrix, double* k_Samples, double lr, int samplesIndex, int nElements, int BMUIndex, int nRows, int nColumns, int radius, int nNeuron, char neighborsType)
 {
+    # pragma omp parallel for schedule(guided)
     for(int index = 0; index < nNeuron; index++)
     {
         // call function to compute distance in a toroidal exagonal map

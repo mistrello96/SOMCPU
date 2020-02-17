@@ -1,3 +1,6 @@
+project(ProjectName)
+cmake_minimum_required(VERSION 3.00)
+
 # Root dir
 set(PROJECT_ROOT_DIR ${PROJECT_SOURCE_DIR})
 
@@ -35,3 +38,8 @@ add_executable(
 
 # C++11
 # target_compile_features(SOMCPU PUBLIC cxx_std_11)
+
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(SOMCPU PUBLIC OpenMP::OpenMP_CXX)
+endif()
