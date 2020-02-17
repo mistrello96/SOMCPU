@@ -1,5 +1,5 @@
 # SOMCPU
-A C++ implementation of Self-Organizing Maps for unsupervised learning.
+A parallel C++ implementation of Self-Organizing Maps for unsupervised learning.
 The learning process is done by competitive learning between neurons of the SOM.
 The closest unit to the input vector is called Best Machine Unit (BMU) and its weigth vector is moved in the direction of the input vector.
 Also the neighbourhood of the BMU is moved in the same direction, but with lower magnitude, according to the distance from the BMU.
@@ -14,6 +14,7 @@ This tool allows to specify lots of parameters used in the learning process, suc
 - Two types of lattice for the neurons of the SOM (square or exagonal)
 - Possibility to use a toroidal topology
 - Possibility to decay the learning rate and/or the radius exponentially
+- Number of threads
 
 For all the other functions, please refer to the help menu included in the tool
 --------------------------------------------------------
