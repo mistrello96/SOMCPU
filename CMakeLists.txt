@@ -22,8 +22,7 @@ add_custom_command(
     COMMAND gengetopt -i ${PROJECT_SOURCE_DIR}/lineparser.ggo --output-dir=${PROJECT_SOURCE_DIR}
 )
 
-add_custom_target(run ALL
-    DEPENDS ${PROJECT_SOURCE_DIR}/cmdline.c)
+add_custom_target(run ALL)
 
 # Source files
 add_executable(
