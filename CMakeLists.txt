@@ -23,7 +23,7 @@ add_custom_command(
 )
 
 add_custom_target(run ALL
-    DEPENDS ${PROJECT_SOURCE_DIR}/lineparser.ggo)
+    DEPENDS ${PROJECT_SOURCE_DIR}/cmdline.c)
 
 # Source files
 add_executable(
