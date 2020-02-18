@@ -29,7 +29,6 @@ test:
     script:
         - docker run --rm $CONTAINER_TEST_IMAGE -n 2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t 4 --test
         - docker run --rm $CONTAINER_TEST_IMAGE -n 2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t 4 --test
-        - docker run --rm $CONTAINER_TEST_IMAGE -n 2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t 4 --test
         - docker run --rm $CONTAINER_TEST_IMAGE -n 2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y -5 -s 0.01 -t 4 --test
         - docker run --rm $CONTAINER_TEST_IMAGE -n 2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x -5 -y 5 -s 0.01 -t 4 --test
         - docker run --rm $CONTAINER_TEST_IMAGE -n -2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t 4 --test
