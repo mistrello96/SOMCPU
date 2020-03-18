@@ -16,16 +16,12 @@ stages:
 
 build:
     stage: build
-    tags:
-        - deploy
     script:
         - docker build -t $CONTAINER_TEST_IMAGE .
         - docker push $CONTAINER_TEST_IMAGE
         
 test:
     stage: test
-    tags:
-    - deploy
     script:
         - docker run --rm $CONTAINER_TEST_IMAGE -n 2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s 0.01 -t 4 --test
         - docker run --rm $CONTAINER_TEST_IMAGE -n 2 -i ExampleData/leucemia_116x14.txt --initialization=r --normalizedistance -x 5 -y 5 -s -0.01 -t 4 --test
@@ -35,8 +31,6 @@ test:
 
 release-image:
   stage: release
-  tags:
-  - deploy
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
